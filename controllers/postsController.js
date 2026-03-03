@@ -5,8 +5,15 @@ function index(req, res) {
 }
 
 function show(req, res) {
-    const id = req.params.id
-    res.send(`Dettaglio del post ${id}`)
+    const postsId = parseInt(req.params.id)
+    const post = posts.find((post) => post.id === postsId)
+    if (!post) {
+        return res.status(404).json({
+            message: `Post ${postsId} non trovato`,
+            success: false,
+        })
+    }
+    return res.json(post)
 }
 
 function store(req, res) {
@@ -24,8 +31,17 @@ function modify(req, res) {
 }
 
 function destroy(req, res) {
-    const id = req.params.id
-    res.send(`Eliminazione del post ${id}`)
+    const postsId = parseInt(req.params.id)
+    const postIndex = posts.findIndex((post) => post.id === postsId)
+    if (postIndex === -1) {
+        return res.status(404).json({
+            message: `Post ${postsId} non trovato`,
+            success: false,
+        })
+    }
+    posts.splice(postIndex, 1)
+    console.log("Lista aggiornata:", posts)
+    res.sendStatus(204)
 }
 
 module.exports = { index, show, store, update, modify, destroy }
