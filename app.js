@@ -4,6 +4,7 @@ const port = 3000
 const appUrl = `http://localhost:${port}`
 const postsRouter = require("./routers/posts")
 
+app.use(express.json())
 app.use("/posts", postsRouter)
 
 app.get("/", (req, res) => {
