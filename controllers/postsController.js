@@ -39,8 +39,18 @@ function store(req, res) {
 }
 
 function update(req, res) {
-    const id = req.params.id
-    res.send(`Modifica del post ${id}`)
+    const postsId = parseInt(req.params.id)
+    const postIndex = posts.findIndex((post) => post.id === postsId)
+    const { title, content, image, tags } = req.body
+    const updatedPost = {
+        id: postsId,
+        title,
+        content,
+        image,
+        tags,
+    }
+    posts[postIndex] = updatedPost
+    res.json(updatedPost)
 }
 
 function modify(req, res) {
