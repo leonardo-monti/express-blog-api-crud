@@ -41,6 +41,9 @@ function store(req, res) {
 function update(req, res) {
     const postsId = parseInt(req.params.id)
     const postIndex = posts.findIndex((post) => post.id === postsId)
+    if (postIndex === -1) {
+        throw new Error("Post Not found")
+    }
     const { title, content, image, tags } = req.body
     const updatedPost = {
         id: postsId,

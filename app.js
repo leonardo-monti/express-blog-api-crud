@@ -5,6 +5,7 @@ const appUrl = `http://localhost:${port}`
 
 const postsRouter = require("./routers/posts")
 const notFound = require("./middlewares/notFound")
+const errorsHandler = require("./middlewares/errorsHandler")
 
 app.use(express.json())
 app.use("/posts", postsRouter)
@@ -14,6 +15,7 @@ app.get("/", (req, res) => {
 })
 
 app.use(notFound)
+app.use(errorsHandler)
 
 app.listen(port, () => {
     console.log(`Server listening on ${appUrl}`)
